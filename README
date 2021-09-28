@@ -1,0 +1,7 @@
+hi welcome to word game
+
+just like bomb party except there is no time limit and also its scuffed
+
+take a look in bigrams.txt and trigrams.txt for an idea of how many to include when playing
+
+to play, either call `python3 main.py` or mark the file as executable with `chmod +x main.py` and call `./main.py`
