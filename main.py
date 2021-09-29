@@ -1,23 +1,13 @@
 #!/usr/bin/env python3
 
-import os
+import os, argparse
 from random import choice
 from time import time, sleep
-import argparse
 
 def clear():	
 	os.system('cls' if os.name == 'nt' else 'clear')
 
-parser = argparse.ArgumentParser(description='plays word game')
-
-parser.add_argument('--size', '-s', type=str, choices=['2', '3'], help='size of letter prompts')
-parser.add_argument('--amount', '-a', type=str,  help='amount of letter prompts')
-parser.add_argument('--verbose', '-v', help='increase verbosity', action='store_true')
-parser.add_argument('--history', '-k', help='keep prompt history when playing', action='store_true')
-args = parser.parse_args()
-
-
-def mainGame(prompts: list):
+def game(prompts: list):
 
 	if args.verbose:
 		print(prompts)
@@ -25,7 +15,7 @@ def mainGame(prompts: list):
 	if not args.history:
 		clear()
 
-	print('Get ready! \nType \'-stop\' or press Ctrl+C to end\n')
+	print('Get ready! \n Type \'-stop\' or press Ctrl+C to end')
 	sleep(1)
 
 	with open('dict.txt', 'r') as f:
@@ -72,7 +62,7 @@ def mainGame(prompts: list):
 					
 				print('\33[91mDoesn\'t contain the prompt!\33[0m\n')
 
-	except KeyboardInterrupt:
+	except:
 		print('\nbye bye')
 		sleep(0.5)
 		exit()
@@ -133,7 +123,7 @@ def startup():
 			for i in range(int(amount)):
 				prompts.append(f.readline()[:3])
 	
-	mainGame(prompts)
+	game(prompts)
 
 
 def main():
@@ -141,6 +131,16 @@ def main():
 
 
 if __name__ == "__main__":
-  main()
 
+	parser = argparse.ArgumentParser(description='plays word game')
 
+	parser.add_argument('--size', '-s', type=str, choices=['2', '3'], help='size of letter prompts')
+
+	parser.add_argument('--amount', '-a', type=str,  help='amount of letter prompts')
+
+	parser.add_argument('--verbose', '-v', help='increase verbosity', action='store_true')
+
+	parser.add_argument('--history', '-k', help='keep prompt history when playing', action='store_true')
+
+	args = parser.parse_args()
+	main()
